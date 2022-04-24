@@ -80,7 +80,6 @@ static const Layout layouts[] = {
 /* key definitions */
 #define MODKEY Mod4Mask
 #define MODKEY2 Mod1Mask
-#define CTRLKEY XK_Control_L
 #define TAGKEYS(KEY,TAG) \
 	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -109,15 +108,8 @@ static const char *hibernate[] = {"prompt", "Do you want to go hibernate?", "ZZZ
 //static const char *walreload[] = {"walreload", NULL};
 //static const char *themereload[] = {"themereload", NULL};
 
-
-#include "shift-tools.c"
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY2,             		XK_Tab,   shiftview,		{ .i =+1 } },
-	{ MODKEY2|ShiftMask,            XK_Tab,   shiftview,		{ .i =-1} },
-
-
-
 	{ MODKEY,                       XK_space,  spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_p,      togglebar,      {0} },
@@ -128,10 +120,6 @@ static Key keys[] = {
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-	{ MODKEY|ShiftMask,		XK_h,      shiftboth,      { .i = -1 }	},
-	{ MODKEY|ControlMask,		XK_h,      shiftswaptags,  { .i = -1 }	},
-	{ MODKEY|ControlMask,		XK_l,      shiftswaptags,  { .i = +1 }	},
-	{ MODKEY|ShiftMask,             XK_l,      shiftboth,      { .i = +1 }	},
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	//{ MODKEY,                       XK_Tab,    view,           {0} },
