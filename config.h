@@ -22,8 +22,8 @@ static const char *colors[][3]      = {
 };
 
 static const char *const autostart[] = {
-	"slstatus", NULL,
-	"st", "-n", "terminal", NULL,
+    "slstatus", NULL,
+    "st", "-n", "terminal", NULL,
 	"st", "-n", "cmus", "-e", "pw-jack", "cmus", NULL,
 	//"themereload", NULL,
 	NULL /* terminate */
@@ -41,8 +41,8 @@ static const Rule rules[] = {
 	{ "Chromium-browser-chromium", "chromium-browser-chromium", NULL, 1, 0, -1 },
 	{ "discord",  "discord", NULL, 2, 0, -1 },
 	{ "Terminator",  "terminator", NULL, 1 << 9, 0, -1 },
-	{ NULL, "terminal", NULL, 1 << 2, 0, -1},
-	{ "kitty",  "kitty", NULL, 1 << 9, 0, -1 },	
+	{ NULL, "terminal", NULL, 2, 0, -1},
+	{ "kitty",  "kitty", NULL, 1 << 9, 0, -1 },
 	{ "Microsoft Teams - Preview", "microsoft teams - preview", NULL, 1 << 4, 0, -1},
 	{ NULL, "cmus", NULL, 1 << 3, 0, -1},
 	{ "SevTech Ages", "SevTech Ages", "SevTech Ages", 1 << 5, 0, -1},
@@ -144,9 +144,6 @@ static Key keys[] = {
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_u,      setlayout,      {.v = &layouts[3]} },
-	{ MODKEY,                       XK_o,      setlayout,      {.v = &layouts[4]} },
-
 	{ MODKEY2,                      XK_space,  setlayout,      {0} },
 	{ MODKEY2|ShiftMask,            XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
@@ -156,7 +153,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
 	//{ MODKEY,			XK_F5,     spawn,	   {.v = themereload}},
-	
+
 	//{ MODKEY,                       XK_minus,  setgaps,        {.i = -1 } },
 	//{ MODKEY,                       XK_equal,  setgaps,        {.i = +1 } },
 	//{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
