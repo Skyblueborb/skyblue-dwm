@@ -40,7 +40,6 @@ static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Chromium-browser-chromium", "chromium-browser-chromium", NULL, 1, 0, -1 },
 	{ "discord",  "discord", NULL, 2, 0, -1 },
-	{ "Terminator",  "terminator", NULL, 1 << 9, 0, -1 },
 	{ NULL, "terminal", NULL, 2, 0, -1},
 	{ "kitty",  "kitty", NULL, 1 << 9, 0, -1 },
 	{ "Microsoft Teams - Preview", "microsoft teams - preview", NULL, 1 << 4, 0, -1},
@@ -56,6 +55,7 @@ static const Rule rules[] = {
 	{ "borderlands3.exe",  "borderlands3.exe", NULL, 1 << 5, 0, -1 },
 	{ "civilizationvi.exe",  "civilizationvi.exe", NULL, 1 << 5, 0, -1 },
 	{ "Lutris",  "lutris", NULL, 1 << 4, 0, -1 },
+	{ "heroic",  "heroic", NULL, 1 << 4, 0, -1 },
 	{ "battle.net.exe",  "battle.net.exe", NULL, 1 << 4, 0, -1 },
 	{ "MultiMC5",  "multimc", NULL, 1 << 4, 0, -1 },
 	{ "steam_app_960090",  "steam_app_960090", NULL, 1 << 5, 0, -1 },
