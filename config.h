@@ -6,6 +6,9 @@ static const unsigned int gappx     = 3;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
+static int vertpad            = 3;       /* vertical padding of bar */
+static int sidepad            = 3;       /* horizontal padding of bar */
+
 static const char *fonts[]          = { "JetBrains Mono Medium:style=Medium,Regular:size=10", "Font Awesome 6 Pro:style=Solid:pixelsize=11", "Font Awesome 5 Pro:style=Solid:pixelsize=11" };
 static const char dmenufont[]       = "JetBrains Mono Medium:style=Medium,Regular:size=10";
 
@@ -23,10 +26,8 @@ static char *colors[][3]      = {
 };
 
 static const char *const autostart[] = {
-    "slstatus", NULL,
-    "st", "-n", "terminal", NULL,
-	"st", "-n", "cmus", "-e", "pw-jack", "cmus", NULL,
-	//"themereload", NULL,
+    "dwm_statusbar_wrapper", NULL,
+	"sh", "-c", "cmus_wrapper", NULL,
 	NULL /* terminate */
 };
 
@@ -38,19 +39,30 @@ static const unsigned int ulinestroke	= 2;	/* thickness / height of the underlin
 static const unsigned int ulinevoffset	= 0;	/* how far above the bottom of the bar the line should appear */
 static const int ulineall 		= 0;	/* 1 to show underline on all tags, 0 for just the active ones */
 
+/* Lockfile */
+static char lockfile[] = "/tmp/dwm.lock";
+
 static const Rule rules[] = {
 	/* xprop(1):
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
 	/* class      instance    title       tags mask     isfloating   monitor */
+
+    /* General */
 	{ "Chromium-browser-chromium", "chromium-browser-chromium", NULL, 1, 0, -1 },
 	{ "discord",  "discord", NULL, 2, 0, -1 },
 	{ NULL, "terminal", NULL, 2, 0, -1},
-	{ "kitty",  "kitty", NULL, 1 << 9, 0, -1 },
 	{ "Microsoft Teams - Preview", "microsoft teams - preview", NULL, 1 << 4, 0, -1},
+	{ "kitty",  "kitty", NULL, 1 << 9, 0, -1 },
 	{ NULL, "cmus", NULL, 1 << 3, 0, -1},
-	{ "SevTech Ages", "SevTech Ages", "SevTech Ages", 1 << 5, 0, -1},
+
+    /* Games */
+   	{ "Lutris",  "lutris", NULL, 1 << 4, 0, -1 },
+	{ "heroic",  "heroic", NULL, 1 << 4, 0, -1 },
+	{ "battle.net.exe",  "battle.net.exe", NULL, 1 << 4, 0, -1 },
+    { "PolyMC", "polymc", NULL, 1 << 4, 0, -1},
+	{ "SevTech Ages", "SevTech Ages", NULL, 1 << 5, 0, -1},
 	{ "Minecraft 1.8.9",  "Minecraft 1.8.9", NULL, 1 << 5, 0, -1 },
 	{ "Minecraft* 1.17.1",  "Minecraft* 1.17.1", NULL, 1 << 5, 0, -1 },
 	{ "Minecraft* 1.18.1",  "Minecraft* 1.18.1", NULL, 1 << 5, 0, -1 },
@@ -59,15 +71,10 @@ static const Rule rules[] = {
 	{ "civilizationvi.exe",  "civilizationvi.exe", NULL, 1 << 5, 0, -1 },
 	{ "doomx64vk.exe",  "doomx64vk.exe", NULL, 1 << 5, 0, -1 },
 	{ "borderlands3.exe",  "borderlands3.exe", NULL, 1 << 5, 0, -1 },
-	{ "civilizationvi.exe",  "civilizationvi.exe", NULL, 1 << 5, 0, -1 },
-	{ "Lutris",  "lutris", NULL, 1 << 4, 0, -1 },
-	{ "heroic",  "heroic", NULL, 1 << 4, 0, -1 },
-	{ "battle.net.exe",  "battle.net.exe", NULL, 1 << 4, 0, -1 },
-	{ "MultiMC5",  "multimc", NULL, 1 << 4, 0, -1 },
-	{ "steam_app_960090",  "steam_app_960090", NULL, 1 << 5, 0, -1 },
 	{ "Steam",  "Steam", NULL, 1 << 4, 0, -1 },
-	{ "Kodi",  "Kodi", NULL, 1 << 4, 0, -1 },
-	{ "steam_app_252950",  "steam_app_252950", NULL, 1 << 5, 0, -1 },
+	{ "steam_app_252950",  "steam_app_252950", NULL, 1 << 5, 0, -1 }, // Rocket League
+	{ "steam_app_960090",  "steam_app_960090", NULL, 1 << 5, 0, -1 }, // BTD 6
+	{ "steam_app_1276390",  "steam_app_1276390", NULL, 1 << 5, 0, -1 }, // BTDB2
 };
 
 /* layout(s) */
@@ -92,9 +99,9 @@ static const char *monocles[] = { "", "", "", "", "", "", "
 #define MODKEY2 Mod1Mask
 #define CTRLKEY XK_Control_L
 #define TAGKEYS(KEY,TAG) \
-	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
+	{ MODKEY,                       KEY,      comboview,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
-	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
+	{ MODKEY|ShiftMask,             KEY,      combotag,            {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
@@ -102,7 +109,7 @@ static const char *monocles[] = { "", "", "", "", "", "", "
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-hp", "ungoogled,chromium,discord,firefox,kitty,vscodium,nomacs,steam,multimc,flameshot,netflix,mpv,zzz", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-hp", "ungoogled,chromium,discord,firefox,kitty,vscodium,nomacs,steam,polymc,flameshot,netflix,mpv,zzz", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *flameshot[] = {"flameshot", "gui", NULL};
 static const char *cmusplaypause[] = {"playerctl", "--player=cmus", "play-pause", NULL};
@@ -156,7 +163,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
 	{ MODKEY2,                      XK_space,  setlayout,      {0} },
 	{ MODKEY2|ShiftMask,            XK_space,  togglefloating, {0} },
-	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
+	{ MODKEY,                       XK_0,      comboview,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
