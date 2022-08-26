@@ -110,8 +110,7 @@ static const char *monocles[] = { "", "", "", "", "", "", "
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-hp", "ungoogled,chromium,discord,firefox,kitty,vscodium,nomacs,steam,polymc,flameshot,netflix,mpv,zzz", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-hp", "ungoogled,chromium,discord,firefox,kitty,vscodium,nomacs,steam,polymc,flameshot,netflix,mpv,zzz", "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *flameshot[] = {"flameshot", "gui", NULL};
 static const char *cmusplaypause[] = {"playerctl", "--player=cmus", "play-pause", NULL};
