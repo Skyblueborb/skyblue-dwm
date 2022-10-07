@@ -99,9 +99,11 @@ static const char *monocles[] = { "", "", "", "", "", "", "
 #define MODKEY2 Mod1Mask
 #define CTRLKEY XK_Control_L
 #define TAGKEYS(KEY,TAG) \
-	{ MODKEY,                       KEY,      comboview,           {.ui = 1 << TAG} }, \
+	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
+	{ MODKEY2,                      KEY,      comboview,           {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
-	{ MODKEY|ShiftMask,             KEY,      combotag,            {.ui = 1 << TAG} }, \
+	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
+	{ MODKEY2|ShiftMask,            KEY,      combotag,            {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
@@ -132,9 +134,6 @@ static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY2,             		XK_Tab,   shiftview,		{ .i =+1 } },
 	{ MODKEY2|ShiftMask,            XK_Tab,   shiftview,		{ .i =-1} },
-
-
-
 	{ MODKEY,                       XK_space,  spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_p,      togglebar,      {0} },
