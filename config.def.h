@@ -119,13 +119,8 @@ static const char *cmusprevious[] = {"playerctl", "--player=cmus", "previous", N
 static const char *betterlockscreen[] = {"betterlockscreen", "-l", NULL};
 static const char *volup [] = {"pactl", "set-sink-volume", "50", "+5%", NULL};
 static const char *voldown[] = {"pactl", "set-sink-volume", "50", "-5%", NULL};
-static const char *shutdown[] = {"prompt", "Do you want to shutdown?", "shutdown -h now", NULL};
-static const char *lowpower[] = {"prompt", "Do you want to go into low power mode?", "zzz -S", NULL};
-//static const char *sleepcmd[] = {"prompt", "Do you want to go sleep?", "zzz", NULL};
-static const char *sleepcmdnoprompt[] = {"zzz", NULL};
-static const char *hibernate[] = {"prompt", "Do you want to go hibernate?", "ZZZ", NULL};
-//static const char *walreload[] = {"walreload", NULL};
-//static const char *themereload[] = {"themereload", NULL};
+static const char *shutdown[] = {"prompt", "Do you want to shutdown?", "sudo shutdown -h now", NULL};
+static const char *sleepcmdnoprompt[] = {"sudo", "zzz", NULL};
 
 
 #include "shift-tools.c"
@@ -149,11 +144,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_l,      shiftboth,      { .i = +1 }	},
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
-	//{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,		XK_o,	   spawn,	{.v = shutdown} },
-	{ MODKEY|ShiftMask,		XK_h,	   spawn,	{.v = hibernate} },
-	//{ MODKEY|ShiftMask,		XK_s,	   spawn,	{.v = sleepcmd} },
-	{ MODKEY|ShiftMask,		XK_p,	   spawn,	{.v = lowpower} },
 	{ 0,		XK_Pause,	   spawn,	{.v = sleepcmdnoprompt} },
 	{ MODKEY,             		XK_q,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
@@ -167,12 +158,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	//{ MODKEY,			XK_F5,     spawn,	   {.v = themereload}},
 	{ MODKEY,			XK_F5,     xrdb,	   {.v = NULL} },
-
-	//{ MODKEY,                       XK_minus,  setgaps,        {.i = -1 } },
-	//{ MODKEY,                       XK_equal,  setgaps,        {.i = +1 } },
-	//{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
 	{ 0,				XK_Print,  spawn,	   {.v = flameshot } },
 	{ ControlMask|ShiftMask,	XK_x,	   spawn,		{.v = cmusplaypause } },
 	{ ControlMask|ShiftMask,	XK_b,	   spawn,		{.v = cmusnext } },
