@@ -326,7 +326,7 @@ static size_t autostart_len;
 
 /* execute command from autostart array */
 static void
-autostart_exec() {
+autostart_exec(void) {
 	const char *const *p;
 	size_t i = 0;
 
@@ -1280,7 +1280,7 @@ killclient(const Arg *arg)
 }
 
 void
-loadxrdb()
+loadxrdb(void)
 {
   Display *display;
   char * resm;
@@ -2194,7 +2194,7 @@ updatebarpos(Monitor *m)
 }
 
 void
-updateclientlist()
+updateclientlist(void)
 {
 	Client *c;
 	Monitor *m;
