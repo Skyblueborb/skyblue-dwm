@@ -32,7 +32,7 @@ static const char *const autostart[] = {
 };
 
 /* tagging */
-static const char *tags[] = { "", "", "", "", "", "" }; //
+static const char *tags[] = { "", "", "", "", "", "" }; //  .
 
 static const unsigned int ulinepad	= 8;	/* horizontal padding between the underline and tag */
 static const unsigned int ulinestroke	= 2;	/* thickness / height of the underline */
@@ -51,6 +51,7 @@ static const Rule rules[] = {
 
     /* General */
 	{ "Chromium-browser-chromium", "chromium-browser-chromium", NULL, 1, 0, -1 },
+	{ "librewolf", NULL,  NULL, 1, 0, -1 },
 	{ "discord",  "discord", NULL, 2, 0, -1 },
 	{ NULL, "terminal", NULL, 2, 0, -1},
 	{ "Microsoft Teams - Preview", "microsoft teams - preview", NULL, 1 << 4, 0, -1},
