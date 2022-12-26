@@ -32,7 +32,7 @@ static const char *const autostart[] = {
 };
 
 /* tagging */
-static const char *tags[] = { "", "", "", "", "", "" }; //  .
+static const char *tags[] = { "", "", "", "", "", "" }; //  .
 
 static const unsigned int ulinepad	= 8;	/* horizontal padding between the underline and tag */
 static const unsigned int ulinestroke	= 2;	/* thickness / height of the underline */
