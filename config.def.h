@@ -81,7 +81,7 @@ static const Rule rules[] = {
 /* layout(s) */
 static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
-static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
+static const int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 0; /* 1 will force focus on the fullscreen window */
 
 static const Layout layouts[] = {
@@ -112,7 +112,7 @@ static const char *monocles[] = { "", "", "", "", "", "", "
 
 /* commands */
 static const char *dmenucmd[] = { "dmenu_run", "-hp", "ungoogled,chromium,discord,firefox,kitty,vscodium,nomacs,steam,polymc,flameshot,netflix,mpv,zzz", "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
-static const char *termcmd[]  = { "st", NULL };
+static const char *termcmd[]  = { "st", "-e", "tmux", NULL };
 static const char *flameshot[] = {"flameshot", "gui", NULL};
 static const char *cmusplaypause[] = {"playerctl", "--player=cmus", "play-pause", NULL};
 static const char *cmusnext[] = {"playerctl", "--player=cmus", "next", NULL};
